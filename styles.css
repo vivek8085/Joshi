@@ -535,6 +535,115 @@ h3 .icon {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.projects-marquee {
+  margin-top: 1.5rem;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 20px rgba(17, 44, 70, 0.08);
+  padding: 0.8rem 0;
+}
+
+.projects-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0.9rem;
+  animation: projectMarquee 24s linear infinite;
+  will-change: transform;
+}
+
+.projects-marquee:hover .projects-marquee-track {
+  animation-play-state: paused;
+}
+
+.projects-marquee-item {
+  margin: 0;
+  width: min(440px, 74vw);
+  flex: 0 0 auto;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 90, 138, 0.2);
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(17, 44, 70, 0.14);
+  transform-origin: center;
+  transition: transform 320ms ease, box-shadow 320ms ease;
+}
+
+.projects-marquee-item:hover {
+  transform: scale(1.45);
+  z-index: 4;
+  box-shadow: 0 20px 40px rgba(17, 44, 70, 0.3);
+}
+
+.projects-marquee-item[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+.projects-marquee-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 280ms ease;
+  cursor: zoom-in;
+}
+
+.projects-marquee-image:hover {
+  transform: scale(1.18);
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.9rem, 2vw, 1.5rem);
+  background: rgba(5, 12, 18, 0.92);
+}
+
+.image-lightbox.is-open {
+  display: flex;
+}
+
+.image-lightbox img {
+  width: 100%;
+  max-width: min(96vw, 1700px);
+  max-height: 96vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55);
+}
+
+.image-lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
+@keyframes projectMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 .edu-list,
 .achievements {
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -723,6 +832,10 @@ h3 .icon {
   .achievements {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .projects-marquee-item {
+    width: min(390px, 78vw);
+  }
 }
 
 @media (max-width: 768px) {
@@ -796,6 +909,14 @@ h3 .icon {
   .edu-list,
   .achievements {
     grid-template-columns: 1fr;
+  }
+
+  .projects-marquee-item {
+    width: min(320px, 84vw);
+  }
+
+  .projects-marquee-item:hover {
+    transform: scale(1.2);
   }
 
   .hero-actions {
